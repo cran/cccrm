@@ -7,13 +7,13 @@ Package:cccrm
 
 Title: CCC-RM
 
-Version: 1.0
+Version: 1.1
 
-Date: 2011-03-01
+Date: 2012-03-21
 
-Author: Josep Lluis Carrasco <jlcarrasco@ub.edu>, Josep Puig Martinez <j.puig04@gmail.com>
+Author: Josep Lluis Carrasco <jlcarrasco@ub.edu>, Josep Puig Martinez <j.puig04@gmail.com>, Lluis Jover <lluis_jover@ub.edu>
 
-Maintainer: Josep Lluis Carrasco <jlcarrasco@ub.edu>
+Maintainer: Josep Puig Martinez <j.puig04@gmail.com>
 
 Depends: R (>= 2.08.0), nlme, gdata
 

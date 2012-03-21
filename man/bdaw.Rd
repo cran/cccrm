@@ -7,8 +7,11 @@
 }
 \format{
 SUBJ	Number of subject
+
 VNUM	Number of time
+
 cort_suc	Plasma cortisol AUC
+
 met	Number of observer
 }
 

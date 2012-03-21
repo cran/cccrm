@@ -20,9 +20,9 @@ cccUst(dataset,ry,rmet,rtime,Dmat=NULL,delta=1)
   \item{rmet}{Character string indicating the method variable in data set}
   \item{rtime}{Character string indicating the time variable in data set} 
   \item{Dmat}{Matrix of weigths}
-  \item{delta}{delta}
-  \item{x}{CCC results}
-  \item{object}{CCC results}
+  \item{delta}{The power of the differences. Delta=0 yields a parameter that is comparable to repeated measures version of kappa}
+  \item{x}{Object class cccUst}
+  \item{object}{Object class cccUst} 
   \item{\dots}{other arguments to be passed to print or summary}}
 
 \value{

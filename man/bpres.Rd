@@ -8,10 +8,16 @@ Systolic and diastolic blood pressure was measured in a sample of 384 subjects u
 }
 \format{
 ID	Number of subject
+
 SEXO	Sex of subject
+
 EDAD	Age of subject
+
 SIS	Systolic blood preasure
+
 DIA	Diastolic blood preasure
+
 NM	Number of visit
+
 METODE	Number of observer}
 

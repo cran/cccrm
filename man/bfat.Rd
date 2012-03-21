@@ -7,8 +7,11 @@
 }
 \format{
 SUBJECT	Number of subject
+
 VISITNO	Number of time
+
 bf	Percentage bodi fat
+
 met	Number of observer
 
 }
