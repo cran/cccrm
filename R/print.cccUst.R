@@ -1,8 +1,7 @@
-print.cccUst <-
-function(x,...)
-{
-cat("Results: \n")
-cat("CCC: ", x$CCC)
-cat("\n")
-}
-
+print.cccUst<-
+  function(x,...)
+  {
+    cat("CCC estimated by U-statistics: \n")
+    print(x[1:4])
+    cat("\n")
+  }

@@ -1,54 +1,72 @@
 \name{ccclon}
 \alias{ccclon}
-\alias{ccclon.default}
-\alias{print.ccclon}
-\alias{summary.ccclon}
-\alias{print.summary.ccclon}
- \title{Longitudinal Repeated Measures Concordance Correlation Coefficient estimated by Variance Components}
-\description{Estimates the concordance correlation coefficient for repeated measurements using the variance components from a linear mixed model. }
-\usage{
-ccclon(dataset,ry,rind,rtime,rmet,covar=NULL,rho=0)
-\method{ccclon}{default}(dataset,ry,rind,rtime,rmet,covar=NULL,rho=0)
-\method{print}{ccclon}(x,...)
-\method{summary}{ccclon}(object,...)
-\method{print}{summary.ccclon}(x,...)
-}
-\arguments{
-  \item{dataset}{Name of data set}
-  \item{ry}{Character string indicating the outcome in data set }
-  \item{rind}{Character string indicating the subject variable in data set}
-  \item{rmet}{Character string indicating the method variable in data set}
-  \item{rtime}{Character string indicating the time variable in data set} 
-  \item{covar}{Character vector indicating the covariables}
-  \item{rho}{Within subject correlation structure. The value 0 stands for compound symmetry and 1 for autoregressive order one}  
-  \item{x}{Object class ccclon}
-  \item{object}{Object class ccclon} 
-  \item{\dots}{other arguments to be passed to print or summary}}
+%- Also NEED an '\alias' for EACH other topic documented here.
+\title{Concordance Correlation Coefficient for longitudinal repeated measures estimated by variance components}
+%%  ~~function to do ... ~~
 
-\value{
-An object of class ccclon.The generic function print and summary gives the estimates of the concordance correlation coefficient.
-The object ccclon contains the following components:
-\item{model}{Linear mixed model output}
-\item{vc}{Variance Components estimates}
-\item{sigma}{An approximate covariance matrix for the variance components}
-\item{ccc.p}{The Concordance Correlation Coefficient estimate} 
-\item{ccc.i}{Vector containing the Concordance Correlation Coefficient estimate, standard error, 95 percent 
-confidence intervals. Additionally Z Fisher's transformation and its standard error are provided}
+\description{Estimation of the concordance correlation coefficient for repeated measurements using the variance components from a linear mixed model. The appropriate intraclass correlation coefficient is used as estimator of the concordance correlation coefficient.}
+%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+
+\usage{
+ccclon(dataset, ry, rind, rtime, rmet, covar = NULL, rho = 0, cl = 0.95)
 }
+%- maybe also 'usage' for other objects documented here.
+\arguments{
+  \item{dataset}{
+An object of class \code{data.frame}.
+}
+  \item{ry}{
+Character string. Name of the outcome in the data set.
+}
+  \item{rind}{
+Character string. Name of the subject variable in the data set.
+}
+  \item{rtime}{
+Character string. Name of the time variable in the data set.
+}
+  \item{rmet}{
+Character string. Name of the method variable in the data set.
+}
+  \item{covar}{
+Character vector. Name of covariables to include in the linear mixed model as fixed effects.
+}
+  \item{rho}{
+Within subject correlation structure. A value of 0 (default option) stands for compound simmetry and 1 is used for autoregressive of order 1 structure.
+}
+  \item{cl}{
+Confidence level.
+}
+}
+\details{
+The concordance correlation coefficient is estimated using the appropriate intraclass correlation coefficient (see Carrasco et al, 2009; Carrasco et al, 2013). The variance components estimates are obtained from a linear mixed model estimated by restricted maximum likelihood. The standard error of CCC is computed using an Taylor's series expansion of 1st order (delta method). Confidence interval is built by applying the Fisher's Z-transformation.
+}
+\value{
+An object of class \code{ccc}. Generic function \code{summary} show a summary of the results. The output is a list with the following components:
+\item{ccc}{Concordance Correlation Coefficient estimate}
+\item{model}{Summary of the linear mixed model}
+\item{vc}{Variance components estimates}
+\item{sigma}{Variance components asymptotic covariance matrix}
+  }
 
 \references{
-King, T. S., Chinchilli, V. M., Carrasco, J. L. (2007). A repeated measures concordance
-correlation coefficient. Statistics in Medicine 26(16):3095 3113
+Carrasco, JL; King, TS; Chinchilli, VM. (2009). The concordance correlation coefficient for repeated measures estimated by variance components. Journal of Biopharmaceutical Statistics, 19, 90:105.
 
-Carrasco, J. L., King, T. S., and Chinchilli, V. M. (2009). The concordance correlation coefficient for repeated measures estimated by variance components. Journal of Biopharmaceutical Statistics 19, 90 105.
+Carrasco, JL; Phillips, BR; Puig-Martinez, J; King, TS;  Chinchilli, VM. (2013). Estimation of the concordance correlation coefficient for repeated measures using SAS and R. Computer Methods and Programs in Biomedicine, 109, 293-304.
+}
+\author{
+Josep Puig-Martinez and Josep L. Carrasco
 }
 
+
+
+\seealso{
+\code{\link{ccclonw}}
+}
 \examples{
-
 data(bdaw)
+estccc<-ccclon(bdaw,"AUC","SUBJ","VNUM","MET")
+estccc
+summary(estccc)
 
-result<-ccclon(bdaw,"cort_auc","SUBJ","VNUM","met")
-result
-
-summary(result)
 }
+

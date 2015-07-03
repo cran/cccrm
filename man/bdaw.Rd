@@ -1,17 +1,16 @@
 \name{bdaw}
 \alias{bdaw}
-\title{Blood draw data}
-\description{Data in wich plasma cortisol AUC was calculated from the trapezoidal rule over the 12-hr period of the hourly blood draws. Data from five visits on each of subjects.}
-\usage{bdaw
-
+\docType{data}
+\title{Blood draw data
+%%   ~~ data name/kind ... ~~
 }
-\format{
-SUBJ	Number of subject
+\description{
+Plasma cortisol area under curve (AUC) was calculated from the trapezoidal rule over the 12-h period of the hourly blood draws. The subjects were required to repeat the process in five visits. The aim of the agreement study was to assess how well the plasma cortisol AUC from hourly measurements agreed with plasma cortisol AUC that was measured every two hours.
+}
+\usage{data("bdaw")}
 
-VNUM	Number of time
-
-cort_suc	Plasma cortisol AUC
-
-met	Number of observer
+\references{
+King, TS; Chinchilli, VM: Carrasco, JL. (2007). A repeated measures concordance correlation coefficient, Statistics in Medicine 26, 3095-3113.
 }
 
+\keyword{datasets}
