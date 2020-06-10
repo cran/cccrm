@@ -8,7 +8,8 @@
 Estimation of the concordance correlation coefficient (CCC) for repeated measurements using the variance components from a linear mixed model. The appropriate intraclass correlation coefficient is used as estimator of the concordance correlation coefficient. Weights are assigned to repeated measurements in the CCC computation process.
 }
 \usage{
-ccclonw(dataset, ry, rind, rtime, rmet, vecD, covar = NULL, rho = 0, cl = 0.95)
+ccclonw(dataset, ry, rind, rtime, rmet, vecD, covar = NULL, rho = 0, cl = 0.95, 
+control.lme=list())
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -39,7 +40,9 @@ Within subject correlation structure. A value of 0 (default option) stands for c
   \item{cl}{
 Confidence level.
 }
-
+  \item{control.lme}{
+A list of control values for the estimation algorithm used in \code{lme} function. For further details see \code{lme} help. 
+  }
 }
 
 

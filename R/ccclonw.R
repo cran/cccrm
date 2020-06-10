@@ -1,12 +1,14 @@
 ccclonw <-
-function(dataset,ry,rind,rtime,rmet,vecD,covar=NULL,rho=0,cl=0.95){
+function(dataset,ry,rind,rtime,rmet,vecD,covar=NULL,rho=0,cl=0.95,control.lme=list()){
 
 if (length(vecD) == 0) {
 stop("Warning: A vector of weights should be provided")}
 
 dades<-data.frame(dataset)
-dades<-rename.vars(dades,from=c(ry,rind,rmet,rtime),to=c("y","ind","met","time"),info=FALSE)
-dades$ind<-as.factor(dades$ind)
+dades <- dades %>% dplyr::rename(y = all_of(ry), 
+                                 ind = all_of(rind), 
+                                 met = all_of(rmet),
+                                 time = all_of(rtime))
 dades$met<-as.factor(dades$met)
 dades$time2<-as.numeric(dades$time)
 dades$time<-as.factor(dades$time)
@@ -29,20 +31,23 @@ if (rho==0){
 
 #Coumpund simmetry model
 
-model.lme<-lme(form,dades,random=list(ind=pdBlocked(list(~1,pdIdent(form=~-1+met),pdIdent(form=~-1+time)))))
+model.lme<-lme(form,dades,
+               random=list(
+                 ind=pdBlocked(list(~1,pdIdent(form=~-1+met),pdIdent(form=~-1+time)))),
+               control=control.lme)
+
 if(is.character(model.lme$apVar)==TRUE){
 stop("Non-positive definite approximate variance-covariance")}
 model<-summary(model.lme)
 
 # Variance components
 
-vc<-exp(2*attr(model.lme$apVar,'Pars'))
-sa<-vc[1]
-sab<-vc[2]
-sag<-vc[3]
-se<-model.lme$sigma^2
+vars<-attr(model$apVar,"Pars")
+SA<-s_exp(vars[1])
+SAB<-s_exp(vars[2])
+SAG<-s_exp(vars[3])
+SE<-s_exp(vars[4])
 
-S<-4*(vc%*%t(vc))*model.lme$apVar  # Var-cov of variance components
 }
 
 if (rho==1){
@@ -50,19 +55,21 @@ if (rho==1){
 
 #AR1 model
 
-model.lme<-lme(form,dades,random=list(ind=pdBlocked(list(~1,pdIdent(form=~-1+met),pdIdent(form=~-1+time)))),correlation=corAR1(form=~time2|ind/met))
+model.lme<-lme(form,dades,
+               random=list(
+                 ind=pdBlocked(list(~1,pdIdent(form=~-1+met),pdIdent(form=~-1+time)))),
+               correlation=corAR1(form=~time2|ind/met),control=control.lme)
+
 if(is.character(model.lme$apVar)==TRUE){
 stop("Non-positive definite approximate variance-covariance")}
 model<-summary(model.lme)
 
 # Variance components
-
-vc<-exp(2*attr(model.lme$apVar,'Pars'))[c(1:3,5)]
-sa<-vc[1]
-sab<-vc[2]
-sag<-vc[3]
-se<-model.lme$sigma^2
-S<-4*(vc%*%t(vc))*model.lme$apVar[c(1:3,5),c(1:3,5)]  # Var-cov of variance components
+vars<-attr(model$apVar,"Pars")
+SA<-s_exp(vars[1])
+SAB<-s_exp(vars[2])
+SAG<-s_exp(vars[3])
+SE<-s_exp(vars[4])
 }
 
 # Dimensions
@@ -125,48 +132,54 @@ difmed<-t(L)%*%b
 A<-L%*%auxD%*%t(L)
 
 aux1<-(t(difmed)%*%auxD%*%difmed)-sum(diag((A%*%Sb)))
-sb<-max(aux1/(nm*(nm-1)),0)
+SB<-max(aux1/(nm*(nm-1)),0)
 sumd<-sum(D);
 
 
 # calculating the CCC;
-den<-(sumd*(sa+sab+sag+se))+sb
-ccc<-(sumd*(sa+sag))/den
-
+ccc<-icc4(SA,SAB,SAG,SE,SB,sumd)
+names(ccc)<-"CCC"
 
 # Variance of between-observers variability;
 
-var.sb<-((2*sum(diag(((A%*%Sb)**2))))+(4*(t(b)%*%A%*%Sb%*%A%*%b)))/((nm*(nm-1))^2)
+var.SB<-((2*sum(diag(((A%*%Sb)**2))))+(4*(t(b)%*%A%*%Sb%*%A%*%b)))/((nm*(nm-1))^2)
+
+
+if (rho == 0){
+  STAU <- model$apVar
+  D_tau<-matrix(c(d_exp(vars[1]),d_exp(vars[2]),d_exp(vars[3]),d_exp(vars[4])),ncol=1)
+}
+
+if (rho == 1){
+  STAU <- model$apVar[c(1:3,5),c(1:3,5)]
+  D_tau<-matrix(c(d_exp(vars[1]),d_exp(vars[2]),d_exp(vars[3]),d_exp(vars[5])),ncol=1)
+}
+
+S<-array(NA,c(5,5))
+S[1:4,1:4]<-D_tau%*%t(D_tau)*STAU
+S[5,5]<-var.SB
+S[1,4]<-S[4,1]<-(-1/ns)*(-1/ns)*(S[1,2]+S[1,3])
+S[2,4]<-S[4,2]<-(-1/ns)*(S[2,2]+S[2,3])
+S[3,4]<-S[4,3]<-(-1/ns)*(S[3,2]+S[3,3])
+S[1,5]<-S[5,1]<-(-1/ns)*(S[1,2]+S[1,4])
+S[2,5]<-S[5,2]<-(-1/ns)*(S[2,2]+S[2,4])
+S[3,5]<-S[5,3]<-(-1/ns)*(S[3,2]+S[3,4])
+S[4,5]<-S[5,4]<-(-1/ns)*(S[4,2]+S[4,4])
+
+
+D<-matrix(c(d4_1(SA,SAB,SAG,SE,SB,sumd),
+            d4_2(SA,SAB,SAG,SE,SB,sumd),
+            d4_3(SA,SAB,SAG,SE,SB,sumd),
+            d4_4(SA,SAB,SAG,SE,SB,sumd),
+            d4_5(SA,SAB,SAG,SE,SB,sumd)),nrow=1)
 
 
 
-#Covariance between sb and the remeaning parameters;
-
-# dev: Vector of derivatives;
-
-dev.sa<-sumd*(1-ccc)/den
-dev.sag<-sumd*(1-ccc)/den
-dev.sb<-(-1)*ccc/den
-if (sb==0) dev.sb<-0
-dev.sab<-sumd*(-1)*ccc/den
-dev.se<-sumd*(-1)*ccc/den
-dev<-array(c(dev.sag,dev.sab,dev.sa,dev.se,dev.sb),dim=c(1,5))
-
-cov.sasb=(-1/ns)*(S[1,2]+S[1,4])
-cov.sabsb=(-1/ns)*(S[2,2]+S[2,4])
-cov.sagsb=(-1/ns)*(S[3,2]+S[3,4])
-cov.sbse=(-1/ns)*(S[4,2]+S[4,4])
-
-S2<-array(,c(5,5))
-S2[1:4,1:4]<-S
-S2[5,]<-c(cov.sasb,cov.sabsb,cov.sagsb,cov.sbse,var.sb)
-S2[1:4,5]<-c(cov.sasb,cov.sabsb,cov.sagsb,cov.sbse)
-
-varcomp<-c(sa,sab,sag,sb,se)
+varcomp<-c(SA,SAB,SAG,SB,SE)
 names(varcomp)<-c("Subjects","Subjects-Method","Subjects-Time","Method","Error")
-est<-ic.ccc(ccc,dev,S2,alpha)
+est<-ic.ccc(ccc,D,S,alpha)
 
-res<-list(ccc=est,vc=varcomp,sigma=S2,model=model)
+res<-list(ccc=est,vc=varcomp,sigma=S,model=model)
 class(res)<-"ccc"
 res 
 }

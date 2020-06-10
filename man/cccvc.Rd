@@ -8,7 +8,7 @@
 Estimation of the concordance correlation coefficient for non-repeated measurements and non-longitudinal repeated measurements (replicates) using the variance components from a linear mixed model. The appropriate intraclass correlation coefficient is used as estimator of the concordance correlation coefficient.
 }
 \usage{
-cccvc(dataset, ry, rind, rmet, covar = NULL, int = FALSE, cl=0.95)
+cccvc(dataset, ry, rind, rmet, covar = NULL, int = FALSE, cl=0.95, control.lme=list())
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -33,6 +33,9 @@ Boolean indicating if the subject-method interaction has to be included in the m
   \item{cl}{
 Confidence level.
 }
+  \item{control.lme}{
+A list of control values for the estimation algorithm used in \code{lme} function. For further details see \code{lme} help. 
+  }
 }
 \details{
 The concordance correlation coefficient is estimated using the appropriate intraclass correlation coefficient (see Carrasco and Jover, 2003; Carrasco et al., 2009; Carrasco et al, 2013). The scenarios considered are non-repeated measurements (only one measurement by subject and method) and non-longitudinal repeated measurements, i.e. replicates (multiple measurements by subject and method). The variance components estimates are obtained from a linear mixed model estimated by restricted maximum likelihood. The standard error of CCC is computed using an Taylor's series expansion of 1st order (delta method). Confidence interval is built by applying the Fisher's Z-transformation.

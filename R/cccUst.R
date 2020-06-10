@@ -3,23 +3,34 @@ function(dataset,ry,rmet,rtime=NULL,Dmat=NULL,delta=1,cl=0.95){
 
 # Creating data dataset
 dades<-data.frame(dataset)
-if (length(rtime)==0) dades<-rename.vars(dades,from=c(ry,rmet),to=c("y","met"),info=FALSE) else dades<-rename.vars(dades,from=c(ry,rmet,rtime),to=c("y","met","time"),info=FALSE)
 
 
+if (length(rtime)==0) dades <- dades %>% dplyr::rename(y = all_of(ry), 
+                                                       met = all_of(rmet))
+
+if (length(rtime)>0) dades <- dades %>% dplyr::rename(y = all_of(ry), 
+                                                       met = all_of(rmet),
+                                                      time = all_of(rtime))
+  
 catmet<-unique(dades$met)
 if (length(rtime)==0){
-valtime<-"1" 
-ntime=1}
-else {
-valtime<-unique(dades$time)
- ntime<-length(valtime)}
+  valtime<-"1" 
+  ntime=1
+  }else {
+  valtime<-unique(dades$time)
+  ntime<-length(valtime)
+  }
+
 ns<-length(dades$y)/(2*ntime)
 
+
 if (length(Dmat)==0){
-Dmat<-diag(rep(1,ntime))}
+  Dmat<-diag(rep(1,ntime))
+}
 
 if(sum(dim(Dmat)==c(ntime,ntime))!=2){
-stop("Invalid dimensions in weigth matrix")}
+stop("Invalid dimensions in weigth matrix")
+  }
 
 #Sort data
 if (length(rtime)>0){
@@ -35,7 +46,7 @@ colnames(Y)<-valtime
 colnames(X)<-valtime
 
 
-phimat<-array(,c(ns*ns,4))
+phimat<-array(NA,c(ns*ns,4))
 cont<-0
 for (i in 1:ns){
 for (j in 1:ns){
@@ -71,7 +82,7 @@ Saux<-Saux+t(phiv[i,]-UV)%*%(phiv[i,]-UV)
 
 Smat<-C%*%(Saux/(ns^2))%*%C
 
-dev<-array(,c(1,2))
+dev<-array(NA,c(1,2))
 dev[1,1]<-((-1)*ns*(ns-1)*V)/((U+(ns-1)*V)^2)
 dev[1,2]<-(ns*(ns-1)*U)/((U+(ns-1)*V)^2)
 
@@ -81,7 +92,7 @@ alpha=1-cl
 
 Z<-0.5*(log((1+CCC)/(1-CCC)))
 VarZ<-VarCCC/(((1-CCC)^2)*((1+CCC)^2))
-ic.z=Z+c(-1,1)*qnorm(1-alpha/2)*sqrt(VarZ)
+ic.z=Z+c(-1,1)*qnorm(1-alpha/2)*c(sqrt(VarZ))
 ic.ccc=(exp(2*ic.z)-1)/(exp(2*ic.z)+1)
 result<-c(CCC,ic.ccc,sqrt(VarCCC),Z,sqrt(VarZ))
 conf.lab=paste((1-alpha)*100,"%",sep="")

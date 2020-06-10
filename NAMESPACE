@@ -1,13 +1,15 @@
 export(cccvc,ccclon,ccclonw,cccUst)
-exportClasses(ccc)
-exportClasses(cccUst)
 
-import(nlme)
-import(gdata)
+
+import(Deriv)
+import(dplyr)
+importFrom(nlme,lme,lmeControl,pdBlocked,pdIdent,corAR1)
 importFrom(stats,qnorm)
 importFrom(stats,as.formula)
 importFrom(stats,contrasts)
 importFrom(stats,na.omit)
+importFrom(tidyselect,all_of)
+
 
 # S3 methods
 S3method(print, "ccc")

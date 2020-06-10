@@ -8,7 +8,8 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 
 \usage{
-ccclon(dataset, ry, rind, rtime, rmet, covar = NULL, rho = 0, cl = 0.95)
+ccclon(dataset, ry, rind, rtime, rmet, covar = NULL, rho = 0, cl = 0.95,
+control.lme=list())
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -36,6 +37,10 @@ Within subject correlation structure. A value of 0 (default option) stands for c
   \item{cl}{
 Confidence level.
 }
+  \item{control.lme}{
+A list of control values for the estimation algorithm used in \code{lme} function. For further details see \code{lme} help. 
+  }
+
 }
 \details{
 The concordance correlation coefficient is estimated using the appropriate intraclass correlation coefficient (see Carrasco et al, 2009; Carrasco et al, 2013). The variance components estimates are obtained from a linear mixed model estimated by restricted maximum likelihood. The standard error of CCC is computed using an Taylor's series expansion of 1st order (delta method). Confidence interval is built by applying the Fisher's Z-transformation.
