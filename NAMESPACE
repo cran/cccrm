@@ -1,4 +1,4 @@
-export(cccvc,ccclon,ccclonw,cccUst)
+export(cccvc,ccclon,ccclonw,cccUst,icc)
 
 
 import(Deriv)
@@ -15,6 +15,7 @@ importFrom(tidyselect,all_of)
 S3method(print, "ccc")
 S3method(print, "cccUst")
 S3method(summary, "ccc")
-
+S3method(print, "icc")
+S3method(summary, "icc")
 
 

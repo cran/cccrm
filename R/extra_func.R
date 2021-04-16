@@ -47,12 +47,15 @@ s_exp<-function(tau)  exp(2*(tau))
 
 d_exp<-Deriv(s_exp,"tau")
 
-
+icc0<-function(sa,se,sb) sa/(sa+se)
 icc1<-function(sa,se,sb) sa/(sa+sb+se)
 icc2<-function(sa,sab,se,sb) sa/(sa+sab+sb+se)
 icc3<-function(sa,sab,sag,se,sb) (sa+sag)/(sa+sab+sag+se+sb)
 icc4<-function(sa,sab,sag,se,sb,sumd) (sumd*(sa+sag))/((sumd*(sa+sab+sag+se))+sb)
   
+
+d0_1<-Deriv(icc0,"sa")
+d0_2<-Deriv(icc0,"se")
 
 d1_1<-Deriv(icc1,"sa")
 d1_2<-Deriv(icc1,"se")

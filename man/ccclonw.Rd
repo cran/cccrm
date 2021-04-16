@@ -47,7 +47,7 @@ A list of control values for the estimation algorithm used in \code{lme} functio
 
 
 \details{
-The concordance correlation coefficient is estimated using the appropriate intraclass correlation coefficient  which expression is modified accordingly to assign different weights to each repeated measurement (see Carrasco et al, 2009; Carrasco et al, 2013). The variance components estimates are obtained from a linear mixed model estimated by restricted maximum likelihood. The standard error of CCC is computed using an Taylor's series expansion of 1st order (delta method). Confidence interval is built by applying the Fisher's Z-transformation.
+The concordance correlation coefficient is estimated using the appropriate intraclass correlation coefficient  which expression is modified accordingly to assign different weights to each repeated measurement (see Carrasco et al, 2009; Carrasco et al, 2013). The variance components estimates are obtained from a linear mixed model (LMM) estimated by restricted maximum likelihood. The function \emph{lme} from package \emph{nlme} (Pinheiro et al., 2021) is used to estimate the LMM. The standard error of CCC is computed using an Taylor's series expansion of 1st order (Ver Hoef, 2012). Confidence interval is built by applying the Fisher's Z-transformation.
 }
 \value{
 An object of class \code{ccc}. Generic function \code{summary} show a summary of the results. The output is a list with the following components:
@@ -60,6 +60,10 @@ An object of class \code{ccc}. Generic function \code{summary} show a summary of
 Carrasco, JL; King, TS; Chinchilli, VM. (2009). The concordance correlation coefficient for repeated measures estimated by variance components. Journal of Biopharmaceutical Statistics, 19, 90:105.
 
 Carrasco, JL; Phillips, BR; Puig-Martinez, J; King, TS;  Chinchilli, VM. (2013). Estimation of the concordance correlation coefficient for repeated measures using SAS and R. Computer Methods and Programs in Biomedicine, 109, 293-304.
+
+Pinheiro J, Bates D, DebRoy S, Sarkar D, R Core Team (2021). nlme: Linear and Nonlinear Mixed Effects Models. R package version 3.1-152, https://CRAN.R-project.org/package=nlme.
+
+Ver Hoef, J.M. (2012) Who Invented the Delta Method?, The American Statistician, 66:2, 124-127.
 }
 \author{
 Josep Puig-Martinez and Josep L. Carrasco
