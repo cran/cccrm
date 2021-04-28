@@ -64,10 +64,16 @@ Josep L. Carrasco
 \examples{
 data(bpres)
  
-#Only 1 measure by subject and method. 
-#No subject-method interaction included in the model.
+# Reliability of method 1 
 
-newdat=bpres[(bpres$NM==1)&(bpres$METODE==1),]
+newdat=bpres[(bpres$METODE==1),]
+est=icc(newdat,"DIA","ID")
+est
+summary(est)
+
+# Reliability of method 2 
+
+newdat=bpres[(bpres$METODE==2),]
 est=icc(newdat,"DIA","ID")
 est
 summary(est)

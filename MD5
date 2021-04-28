@@ -1,4 +1,4 @@
-6e4b1c604d68fde36d25eab2639664db *DESCRIPTION
+22b33f132abe4c972bec540fb73f2b54 *DESCRIPTION
 a91500723cee57197f2fc13eb3345c86 *NAMESPACE
 cc94b1a825a8c5946141496c43a04bd7 *R/bdiag.R
 1ceffad0ba6c45f9c9a73197d10aef4d *R/cccUst.R
@@ -7,10 +7,10 @@ c4816ccf176bc27d3c49f07695027479 *R/ccclonw.R
 b0386eec4911541aa62b028063aabcf1 *R/cccvc.R
 d1a1382c8f37ddc9f37865d0489091f4 *R/cccvc1.R
 d83dadd17d2068d071f65319c9996819 *R/cccvc2.R
-32f8d714c91798cba225c7b7b491630a *R/extra_func.R
+8ce86d8a04057a220398c884c2366aad *R/extra_func.R
 541cf3f70a9671af18cd0df582692679 *R/ic.ccc.R
 a1872ca23c63da8955668e8c4ee9ab51 *R/ic.icc.R
-dd9797b8dc11b19dd64e0c3f8dd46398 *R/icc.R
+c4c6276191a8f9c2679785bfe736ba3d *R/icc.R
 77e81f20ea7bfd0381f371ed55903041 *R/phi.R
 ebf0bae5d1e5971d9df98e615aa1e19c *R/print.ccc.R
 59a4138dc0e0ebb5ad6766cecfd0c943 *R/print.cccUst.R
@@ -27,4 +27,4 @@ afa8fcfd317a379fa53f1d606009192d *man/cccUst.Rd
 4d0f0bc87f0515ce93a4400d43442112 *man/ccclon.Rd
 66ca4b8a53b8c7e75995c5df47dde13e *man/ccclonw.Rd
 959680f7161e38942580ad8b0775ebd4 *man/cccvc.Rd
-f8c83e9b54719b312d00f574df228568 *man/icc.Rd
+fc464724327d990c3021d06c64f31895 *man/icc.Rd

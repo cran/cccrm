@@ -36,11 +36,14 @@ icc<-
     
     # Standard error
     alpha=1-cl
-    S<-model.lme$apVar
+    
+    D_tau<-matrix(c(d_exp(vars[1]),d_exp(vars[2])),ncol=1)
+    
+    S<-D_tau%*%t(D_tau)*model$apVar
     D<-matrix(c(d0_1(SA,SE),
                 d0_2(SA,SE)),
-                nrow=1)
-
+              nrow=1)
+    
     est<-ic.icc(icc,D,S,0.05)
     
     varcomp<-c(SA,SE)
