@@ -4,7 +4,6 @@ function(dataset,ry,rind,rtime,rmet,covar=NULL,rho=0,cl=0.95,
 
 dades<-data.frame(dataset)
 
-
 dades <- dades %>% dplyr::rename(y = all_of(ry), 
                                  ind = all_of(rind), 
                                  met = all_of(rmet),
@@ -37,7 +36,7 @@ model.lme<-lme(form,dades,
 
 if(is.character(model.lme$apVar)==TRUE){
   stop("Non-positive definite approximate variance-covariance")}
-model<-summary(model.lme)
+model<-model.lme
 
 # Variance components
 
@@ -62,7 +61,7 @@ model.lme<-lme(form,dades,
 if(is.character(model.lme$apVar)==TRUE){
 stop("Non-positive definite approximate variance-covariance")
   }
-model<-summary(model.lme)
+model<-model.lme
 
 # Variance components
 
@@ -80,37 +79,19 @@ ns<-length(unique(dades$ind))
 nt<-length(unique(dades$time))
 nm<-length(unique(dades$met))
 
-
 if ((rho==0) | (rho==1)){
 
 b<-as.matrix(model.lme$coef$fixed)
 
+# Take covariates out
+cond<-c(1:((nm-1)+(nt-1)+1),(length(b)-(nm-1)*(nt-1)+1):length(b))  
+b<-b[cond,]
+
 # Design matrix
-nd<-nm*(nm-1)/2
-C<-array(0,dim=c(length(b),nt*nm))
-k<-0
-for (i in 1:nm){
-  for (j in 1:nt){
-    k<-k+1
-    C[,k]<-c(1,contrasts(dades$met)[i,],contrasts(dades$time)[j,],c(contrasts(dades$met)[i,]%*%t(contrasts(dades$time)[j,])))
-  }
-}
 
+L<-Lmat_lon(nm,nt,b,dades)
 
-# Difference between methods matrix
-L<-array(0,dim=c(length(b),nt*nd))
-k<-0
-for (i in 1:(nt*(nm-1))){
-  for (j in (1:(nm-1))){
-    if ((i+nt*j)<=(nt*nm)){
-      k<-k+1
-    L[,k]=C[,i]-C[,i+nt*j]
-      }
-    }
-}
-
-
-Sb<-model.lme$varFix# Var-cov of fixed effects
+Sb<-model.lme$varFix[cond,cond]# Var-cov of fixed effects
 difmed<-t(L)%*%b
 A<-L%*%t(L)
 
@@ -140,10 +121,10 @@ if (rho == 1){
   D_tau<-matrix(c(d_exp(vars[1]),d_exp(vars[2]),d_exp(vars[3]),d_exp(vars[5])),ncol=1)
 }
 
+
 S<-array(NA,c(5,5))
 S[1:4,1:4]<-D_tau%*%t(D_tau)*STAU
 S[5,5]<-var.SB
-
 S[1,4]<-S[4,1]<-(-1/ns)*(-1/ns)*(S[1,2]+S[1,3])
 S[2,4]<-S[4,2]<-(-1/ns)*(S[2,2]+S[2,3])
 S[3,4]<-S[4,3]<-(-1/ns)*(S[3,2]+S[3,3])

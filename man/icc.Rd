@@ -39,7 +39,7 @@ The intraclass correlation coefficient (ICC) (Fleiss, 1986) is estimated using a
 \value{
 An object of class \code{icc}. Generic function \code{summary} show a summary of the results. The output is a list with the following components:
 \item{icc}{Intraclass Correlation Coefficient estimate}
-\item{model}{Summary of the linear mixed model}
+\item{model}{nlme object with the fitted linear mixed model}
 \item{vc}{Variance components estimates}
 \item{sigma}{Variance components asymptotic covariance matrix}
 

@@ -26,7 +26,7 @@ model.lme<-lme(form,dades,
 
 if(is.character(model.lme$apVar)==TRUE){
 stop("Non-positive definite approximate variance-covariance")}
-model<-summary(model.lme)
+model<-model.lme
 
 n<-length(unique(dades$ind))# Number fo subjects
 k<-length(unique(dades$met))# Number of observers

@@ -22,7 +22,7 @@ icc<-
     if(is.character(model.lme$apVar)==TRUE){
       stop("Non-positive definite approximate variance-covariance")}
     
-    model<-summary(model.lme)
+    model<-model.lme
     
     # Variance components
     vars<-attr(model$apVar,"Pars")
@@ -44,7 +44,13 @@ icc<-
                 d0_2(SA,SE)),
               nrow=1)
     
-    est<-ic.icc(icc,D,S,0.05)
+    # Number of replicates
+    nt<-dades %>% group_by(.data$ind) %>% summarize(n=n())
+    ns<-length(unique(nt$ind))
+    n<-nrow(dades)
+    m<-(n-sum(nt$n^2)/n)/(ns-1)
+    
+    est<-ic.icc(icc,D,S,0.05,m)
     
     varcomp<-c(SA,SE)
     names(varcomp)<-c("Subject","Random Error")

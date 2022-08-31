@@ -78,3 +78,43 @@ d4_3<-Deriv(icc4,"sag")
 d4_4<-Deriv(icc4,"se")
 d4_5<-Deriv(icc4,"sb")
 
+
+ZF<-function(r,m) 0.5*log((1+(m-1)*r)/(1-r))
+dZF<-Deriv(ZF,"r")
+
+# Mean of replicates
+
+
+
+# L matrix for ccclon
+Lmat_lon<-function(nm,nt,b,dades){
+  # Design matrix
+  
+  # Number of between-methods differences
+  nd<-nm*(nm-1)/2
+  # All differences design matrix
+  C<-array(0,dim=c(length(b),nt*nm))
+  k<-0
+  for (i in 1:nm){
+    for (j in 1:nt){
+      k<-k+1
+      C[,k]<-c(1,contrasts(dades$met)[i,],contrasts(dades$time)[j,],c(contrasts(dades$met)[i,]%*%t(contrasts(dades$time)[j,])))
+    }
+  }
+  
+  
+  # Difference between methods at each time matrix
+  L<-array(0,dim=c(length(b),nt*nd))
+  k<-0
+  for (i in 1:(nt*(nm-1))){
+    for (j in (1:(nm-1))){
+      if ((i+nt*j)<=(nt*nm)){
+        k<-k+1
+        L[,k]=C[,i]-C[,i+nt*j]
+      }
+    }
+  }
+  return(L)
+}
+
+
