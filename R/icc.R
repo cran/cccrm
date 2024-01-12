@@ -14,7 +14,7 @@ icc<-
     
     form=y~1
     if (length(covar)>0){
-      form<-as.formula(paste("y~met",paste(covar,sep="+"),sep="+"))}
+      form<-as.formula(paste("y~1",paste(covar,sep="+"),sep="+"))}
     
     model.lme<-lme(form,dades,random=~1|ind,method="REML",
                    na.action=na.omit,control=control.lme)

@@ -1,8 +1,8 @@
 Package: cccrm
 Title: Concordance Correlation Coefficient for Repeated (and
         Non-Repeated) Measures
-Version: 2.2.0
-Date: 2023-10-26
+Version: 2.2.1
+Date: 2024-1-12
 Author: Josep Lluis Carrasco <jlcarrasco@ub.edu>, Josep Puig Martinez
         <j.puig04@gmail.com>
 Maintainer: Josep Lluis Carrasco <jlcarrasco@ub.edu>
@@ -13,6 +13,6 @@ License: GPL (>= 2)
 RoxygenNote: 7.2.3
 Encoding: UTF-8
 NeedsCompilation: no
-Packaged: 2023-10-25 15:33:20 UTC; jlcarrasco
+Packaged: 2024-01-12 13:46:23 UTC; hexac
 Repository: CRAN
-Date/Publication: 2023-10-26 12:00:02 UTC
+Date/Publication: 2024-01-12 14:10:02 UTC
