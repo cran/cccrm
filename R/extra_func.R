@@ -80,6 +80,7 @@ d4_5<-Deriv(icc4,"sb")
 
 
 ZF<-function(r,m) 0.5*log((1+(m-1)*r)/(1-r))
+inv.ZF<-function(Z,m) (exp(2*Z)-1)/(exp(2*Z)+m-1)
 dZF<-Deriv(ZF,"r")
 
 # Mean of replicates

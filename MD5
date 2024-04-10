@@ -1,4 +1,4 @@
-3e9cdd98ed5292dd4208f6d42eca31f0 *DESCRIPTION
+280969d5153de791539e5378612e8903 *DESCRIPTION
 a91500723cee57197f2fc13eb3345c86 *NAMESPACE
 cc94b1a825a8c5946141496c43a04bd7 *R/bdiag.R
 1ceffad0ba6c45f9c9a73197d10aef4d *R/cccUst.R
@@ -7,9 +7,9 @@ acc76a9e3ba2447eaf92e2d36b8a2961 *R/ccclon.R
 b0386eec4911541aa62b028063aabcf1 *R/cccvc.R
 a2813a2a915dc2e1ba66f6eae1a18c11 *R/cccvc1.R
 d2efe97f4819c6386e8c648fa925cea4 *R/cccvc2.R
-fc4eb23b4ce879950a52eeb3f1667413 *R/extra_func.R
+30e6d99618cf256c8ccdf1f37a3c1691 *R/extra_func.R
 0c53d3ce30136821140cc7b6ec6da4e4 *R/ic.ccc.R
-58398b88c511863cb39a22f5e97c30e5 *R/ic.icc.R
+dca958f3de4b5be1aa447c7f35fa1992 *R/ic.icc.R
 201645ba8a0e90eb172aa31e6e5bc752 *R/icc.R
 77e81f20ea7bfd0381f371ed55903041 *R/phi.R
 ebf0bae5d1e5971d9df98e615aa1e19c *R/print.ccc.R
@@ -17,9 +17,9 @@ ebf0bae5d1e5971d9df98e615aa1e19c *R/print.ccc.R
 500c76fe611c7087506a19b5201baf74 *R/print.icc.R
 8982e2461eb8ef7bb19c567b6470ae99 *R/summary.ccc.R
 89ca2ac3d2af4d2379f8a1ac5bf42112 *R/summary.icc.R
-6af23b16e05bb1e6fac43d8d7a9a71be *data/bdaw.txt.gz
-0082f28dedf4a329fbaa4f81d18d41c9 *data/bfat.txt.gz
-26a1e7ba75212eba23441974ab2516b9 *data/bpres.txt.gz
+c4a1cab93557be4f6e055ea929b16279 *data/bdaw.txt
+7f59d8c38bd106deab311aca9c433739 *data/bfat.txt
+894c9acb2b35fcee11f86d7eb6ad0bc8 *data/bpres.txt
 a334d6d32a3c0489302e91db451903d5 *man/bdaw.Rd
 ee4257f5961a5a9e8fc5f310d3d042d0 *man/bfat.Rd
 66493591819d5beeee376baf46b92c5b *man/bpres.Rd
