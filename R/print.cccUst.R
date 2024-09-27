@@ -1,3 +1,4 @@
+#' @export
 print.cccUst<-
   function(x,...)
   {

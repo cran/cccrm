@@ -1,3 +1,4 @@
+#' @export
 print.ccc<-
 function(x,...)
 {
