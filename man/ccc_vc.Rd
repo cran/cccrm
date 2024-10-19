@@ -102,21 +102,23 @@ c) Methods comparison data with non-longitudinal repeated measurements, i.e. rep
 }
 \examples{
 
+\dontrun{
 # Scenario 1. Reliability 
 newdat <- bpres |> dplyr::filter(METODE==1)
 icc_rel<-ccc_vc(newdat,"DIA","ID")
 icc_rel
 summary(icc_rel)
 
+
 # Confidence interval using non-parametric bootstrap
-\donttest{
+
 icc_rel_bt<-ccc_vc(newdat,"DIA","ID",boot=TRUE,sd_est=FALSE,
 nboot=500,parallel=TRUE)
 icc_rel_bt
 summary(icc_rel_bt)
-}
 
-# Scenario 2. Non-longitudinal methods comparison.
+
+#' # Scenario 2. Non-longitudinal methods comparison.
 # Only 1 measure by subject and method. 
 # No subjects-method interaction included in the model.
 
@@ -125,21 +127,24 @@ ccc_mc<-ccc_vc(newdat,"DIA","ID","METODE")
 ccc_mc
 summary(ccc_mc)
 
+
 # Confidence interval using parametric bootstrap
-\donttest{
+
 ccc_mc_bt<-ccc_vc(newdat,"DIA","ID",boot=TRUE,boot_param=TRUE,
 sd_est=FALSE,nboot=500,parallel=TRUE)
 ccc_mc_bt
 summary(ccc_mc_bt)
-}
+
 
 # Scenario 3. Non-longitudinal methods comparison. 
 # Two measures by subject and method. 
 # No subject-method interaction included in the model.
 
-ccc_mc_int=ccc_vc(bpres,"DIA","ID","METODE",int=TRUE,control.lme=nlme::lmeControl(opt = 'optim'))
-ccc_mc_int
-summary(ccc_mc_int)
+ccc_mc=ccc_vc(bpres,"DIA","ID","METODE")
+ccc_mc
+summary(ccc_mc)
+
+
 
 # Scenario 4. Methods comparison in longitudinal repeated measures setting.
 ccc_mc_lon<-ccc_vc(bdaw,"AUC","SUBJ","MET","VNUM")
@@ -152,6 +157,7 @@ summary(ccc_mc_lon)
 ccc_mc_lonw<-ccc_vc(bfat,"BF","SUBJECT","MET","VISITNO",vecD=c(2,1,1))
 ccc_mc_lonw
 summary(ccc_mc_lonw)
+}
 
 }
 \references{

@@ -185,17 +185,19 @@ ccc_est <- function(model, D = NULL, cl = 0.95, transf = "F2", sd_est = TRUE,...
     D <- matrix(d_derivs[which(cond.vc == 1)], nrow = 1)
     
     if(type == "icc"){
+      m=k
       icc <- (SA+SAG)/(SA+SAB+SAG+SB+SE)
       names(icc)<-"ICC"
-      est <- ic_ccc(icc, D, S, alpha, k, transf, N = ns)
+      est <- ic_ccc(icc, D, S, alpha, m, transf, N = ns)
       names(est)[c(1,4)] <- c("ICC","SE ICC")
-      res <- list(ccc=est,vc=varcomp,sigma=S,model=model)
+      res <- list(ccc=est,vc=varcomp,sigma=S,model=model,transf=transf,m=m,N=ns)
       class(res)<-"ccc"
     }else{
+      m=nm*nt*k
       ccc <- (SA+SAG)/(SA+SAB+SAG+SB+SE)
       names(ccc)<-"CCC"
-      est<-ic_ccc(ccc, D, S, alpha, nm*nt*k, transf, N = ns) #nm*nt*k
-      res<-list(ccc=est,vc=varcomp,sigma=S,model=model)
+      est<-ic_ccc(ccc, D, S, alpha, m, transf, N = ns) #nm*nt*k
+      res<-list(ccc=est,vc=varcomp,sigma=S,model=model,transf=transf,m=m,N=ns)
       class(res)<-"ccc"
       
     }

@@ -90,8 +90,10 @@ sim_power_ccc<-function(n = 30, nrep = 2, nsim=300, r0=0,alpha=0.05,model=NULL, 
   if("met" %in% names(sim_data)) rmet="met" else rmet=NULL
   if("times" %in% names(sim_data)) rtime="times" else rtime=NULL
   
+  
   message("Computing estimates...")
-  with_progress({
+  message(paste("Transformation used:",transf))
+  progressr::with_progress({
     p <- progressr::progressor(steps = nsim)
     ccc_sim <- furrr::future_map_dfr(1:nsim,~{
       p()
@@ -111,7 +113,7 @@ sim_power_ccc<-function(n = 30, nrep = 2, nsim=300, r0=0,alpha=0.05,model=NULL, 
           out.est<-as.data.frame(matrix(rep(NA,6),nrow=1))
         }
       }else{
-        out.test<-Ztest(res,r0,tr)
+        out.test<-Ztest(cccfit=res,r0=r0,info=FALSE)
         out.est<-data.frame(matrix(res$ccc,nrow=1))
       }
       out<-cbind(out.est,out.test)
@@ -132,7 +134,10 @@ sim_power_ccc<-function(n = 30, nrep = 2, nsim=300, r0=0,alpha=0.05,model=NULL, 
   exp_Range<-mean(rangeIC,na.rm=TRUE)
   precision=round(qnorm(0.975)*sqrt(exp_power*(1-exp_power)/nsim),2)
   
+  paste("Range IC",cl*100,"%",sep="")
+  
   result<-data.frame(n,nrep,exp_CCC,exp_power,precision,exp_SEICC,exp_SEZ,exp_Range)
-  names(result)<-c("n","reps","CCC","Power","Precision","SEICC","SEZ","Range IC")
+  names(result)<-c("n","reps","CCC","Power","Precision","SEICC","SEZ",
+                   paste("Range IC",cl*100,"%",sep=""))
   return(result)
 }

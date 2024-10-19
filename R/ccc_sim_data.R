@@ -94,10 +94,16 @@ ccc_sim_data_aux <- function(n = 30, nrep = 1,b = NULL, g = NULL, mu = 0, sa = 1
     dades<-dades |> dplyr::left_join(dades.met_time,by=c("met","times"))
     
     # Cálculo var methods-time
+    # dades.sbg <-dades.met_time |> dplyr::left_join(dades.met,by="met") |>
+    #   dplyr::mutate(mu_jt=(b+bg)^2) |> dplyr::ungroup()  |> dplyr::summarise(sbg=sum(mu_jt)) 
+    # 
+    # sbg<-dades.sbg$sbg/(p*(k-1))
     dades.sbg <-dades.met_time |> dplyr::left_join(dades.met,by="met") |>
-      dplyr::mutate(mu_jt=(b+bg)^2) |> dplyr::ungroup()  |> dplyr::summarise(sbg=sum(mu_jt)) 
+      dplyr::mutate(mu_jt=(b+bg)) |> group_by(times) |> 
+      summarise_at(vars(mu_jt),diff) |> ungroup() |>
+      summarise(sbg=sum(mu_jt^2))
     
-    sbg<-dades.sbg$sbg/(p*(k-1))
+    sbg<-dades.sbg$sbg/(p*k*(k-1))
     
   }else{
     dades <- dades |> dplyr::mutate(bg = 0)

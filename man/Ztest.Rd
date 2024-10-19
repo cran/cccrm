@@ -4,25 +4,31 @@
 \alias{Ztest}
 \title{Wald's test on the Concordance Correlation Coefficient}
 \usage{
-Ztest(cccfit, r0 = 0, tr = TRUE)
+Ztest(cccfit, cccfit2 = NULL, r0 = 0, info = TRUE)
 }
 \arguments{
 \item{cccfit}{An object of class \code{ccc}.}
 
+\item{cccfit2}{An object of class \code{ccc}.}
+
 \item{r0}{Integer. Null hypothesis value.}
 
-\item{tr}{Logical. Should the transformed CCC be used? Only applies if a transformation was applied in the \code{ccc} object. Default value is TRUE.}
+\item{info}{Logical. Should information about the transformation used be printed?}
 }
 \value{
 A data frame with two columns: \code{Z}, the statistical test value; and the P-value associated.
 }
 \description{
-Estimation of the concordance correlation coefficient for either non-repeated, non-longitudinal, or longitudinal repeated measurements using the variance components from a linear mixed model. The appropriate intraclass correlation coefficient is used as estimator of the concordance correlation coefficient.
+Wald's test is applied to assess whether the CCC (ICC) is greater than a reference value.
+Additionally, Wald's test is also used to compare two independent CCC (ICC).
 }
 \details{
-A one sided test to the null hypothesis value \deqn{\rho_0}.
+If only one ccc is provided, the function runs a one sided test to the null hypothesis value \deqn{\rho_0}.
 \deqn{z=\frac{\hat{\theta}-\rho_0}{SE\left(\hat{\theta}\right)}} where \deqn{\hat{\theta}} stands for the CCC estimate and \deqn{SE\left(\hat{\theta}\right)} its standard error.
-The p-value is computed as \deqn{P\left(X>z\right)} where X follows a standard Normal distribution.
+If a second CCC is provided, the function runs a two-sided test to the null hypothesis of equality of CCCs.
+\deqn{z=\frac{\hat{\theta_1}-\hat{\theta_2}}{\sqrt{Var\left(\hat{\theta_1}\right)}+Var\left(\hat{\theta_2}\right)}}.
+In both cases, the p-value is computed as \deqn{P\left(X>z\right)} where X follows a standard Normal distribution.
+The test uses the transformation indicated when the \code{ccc} object was generated.
 }
 \examples{
 
@@ -30,5 +36,14 @@ The p-value is computed as \deqn{P\left(X>z\right)} where X follows a standard N
 ccc_mc=ccc_vc(bpres,"DIA","ID","METODE")
 ccc_mc
 Ztest(ccc_mc,r0=0.8)
+
+# Comparing two CCC
+
+bpres_Male <- bpres |> dplyr::filter(SEXO==1)
+bpres_Female <- bpres |> dplyr::filter(SEXO==2)
+
+ccc_DIA_Male=ccc_vc(bpres_Male,"DIA","ID","METODE")
+ccc_DIA_Female=ccc_vc(bpres_Female,"DIA","ID","METODE")
+Ztest(ccc_DIA_Male,ccc_DIA_Female)
 
 }
