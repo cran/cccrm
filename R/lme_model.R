@@ -42,6 +42,8 @@ lme_model <- function(dataset,ry,rind,rtime = NULL,rmet = NULL,vecD = NULL,
                       covar=NULL,rho=0,int = FALSE,cl=0.95,control.lme=list(),
                       apVar=TRUE,...){
   
+  
+  control.lme$allow.n.lt.q=TRUE
   stopifnot(rho %in% c(0,1))
   stopifnot(is.logical(int))
   
