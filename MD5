@@ -1,9 +1,9 @@
-f355e82b0bb21812c7ddac4719521f8d *DESCRIPTION
+e443bdfb60b32e7b6eaf88c8ab4c670a *DESCRIPTION
 c7ca14fde9eb8bf8cac26376f18b8b79 *NAMESPACE
 a6f697b4ea3451c5027033f3c2d6c4af *NEWS.md
 6751857a5f48e3e9ba8f9e0d60f0c112 *R/Z_funcs.R
 9700d5f578925b8cd2c34f5ae308ac9a *R/Ztest.R
-3ec4f163a19abce47bc1a1b488d769e9 *R/auxiliary_funcs.R
+4abb5ccad1206100a4f1cebc8a030d5a *R/auxiliary_funcs.R
 d9bd22dae37b2b4db64453b2fb0d959e *R/cccUst.R
 6e390b369da712e13cb51eaf9c9afd2b *R/ccc_est.R
 2724f925b22f2833744a4b1b77e625ef *R/ccc_est_by_time.R
@@ -12,7 +12,7 @@ ff18e728a0857aa1059bc17ecb00712b *R/ccc_sim_data.R
 1b54137d4ae82b40a266122de6d1201b *R/cccrm-package.R
 47fd2d8b9ed845b2ded2e96f2744a0c3 *R/data.R
 48504ff2d07dd0de40c08cc28ed60128 *R/deprecated.R
-2300d6e841d67a1110c4237464874b5f *R/ic_boot.R
+3998ac68a81dace1f9b0bfad65590e38 *R/ic_boot.R
 c62d60968d9d5d1646813edb71a2e60d *R/ic_ccc.R
 b48018c3701785f2415c30f9c7b3e1d6 *R/imports.R
 9aae2732d69cadbe8dcc1bd0f7ae5914 *R/lme_model.R
@@ -26,7 +26,7 @@ f68e13db4f660e1754230c78755bc5e9 *R/resamp_ccc_by_time.R
 3a061f6c3d70d222fc53dd65ed82b474 *R/sim_power_ccc.R
 edd4b4e8b040e6d1b065ed94e25299b9 *R/summary.ccc.R
 3afc41fe8bb87ac56a0a729d20c088ea *R/variance_components.R
-b54db8794555342c4feee5fe0b1b8f5b *build/partial.rdb
+cb3b20077bebc5da31fc1b46c657c0ff *build/partial.rdb
 81d6f20476e0a2e197df89211384348e *data/data.RData
 ab417281b2d65125c725370c99b6b0bb *man/Ztest.Rd
 2d594ec62436c7177e8b00818c33971f *man/bdaw.Rd

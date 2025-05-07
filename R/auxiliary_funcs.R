@@ -146,24 +146,25 @@
      return(out)
    }
  
-bca<-function (theta, cl = 0.95) 
+ 
+ bca<-function (theta, t0, cl = 0.95)
  {
-  
-  theta<-theta[!is.na(theta)]
-  cl_low <- (1 - cl)/2
-  cl_hi <- 1 - cl_low
-  nsims <- length(theta)
-  z.inv <- length(theta[theta < mean(theta)])/nsims
-  z <- qnorm(z.inv)
-  U <- (nsims - 1) * (mean(theta) - theta)
-  A1 <- sum(U^3)
-  A2 <- 6 * (sum(U^2))^{
+   
+   theta<-theta[!is.na(theta)]
+   cl_low <- (1 - cl)/2
+   cl_hi <- 1 - cl_low
+   nsims <- length(theta)
+   z.inv <- length(theta[theta < t0])/nsims
+   z <- qnorm(z.inv)
+   U <- (nsims - 1) * (t0 - theta)
+   A1 <- sum(U^3)
+   A2 <- 6 * (sum(U^2))^{
      3/2
    }
-  a <- A1/A2
-  ll.inv <- pnorm(z + (z + qnorm(cl_low))/(1 - a * (z + qnorm(cl_low))))
-  ll <- quantile(theta, ll.inv, names = FALSE)
-  ul.inv <- pnorm(z + (z + qnorm(cl_hi))/(1 - a * (z + qnorm(cl_hi))))
-  ul <- quantile(theta, ul.inv, names = FALSE)
-  return(c(ll, ul))
+   a <- A1/A2
+   ll.inv <- pnorm(z + (z + qnorm(cl_low))/(1 - a * (z + qnorm(cl_low))))
+   ll <- quantile(theta, ll.inv, names = FALSE)
+   ul.inv <- pnorm(z + (z + qnorm(cl_hi))/(1 - a * (z + qnorm(cl_hi))))
+   ul <- quantile(theta, ul.inv, names = FALSE)
+   return(c(ll, ul))
  }

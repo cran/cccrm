@@ -14,7 +14,7 @@ ic_boot <- function(resamples,cl = 0.95,boot_ci = "BCa",orig_ccc = NULL){
 
   if((boot_ci == "BCa")){
 
-    ci_resamples <- bca(ccc_resamples,cl)
+    ci_resamples <- bca(ccc_resamples,orig_ccc,cl)
 
   }else{
 

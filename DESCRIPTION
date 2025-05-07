@@ -1,8 +1,8 @@
 Package: cccrm
 Title: Concordance Correlation Coefficient for Repeated (and
         Non-Repeated) Measures
-Version: 3.0.4
-Date: 2025-01-25
+Version: 3.0.5
+Date: 2025-05-07
 Authors@R: c(person(given = c("Josep", "Lluis"),
                       family = "Carrasco",
                       role = c("aut", "cre"),
@@ -19,9 +19,9 @@ RoxygenNote: 7.3.2
 Encoding: UTF-8
 LazyData: true
 NeedsCompilation: no
-Packaged: 2025-02-07 14:48:40 UTC; hexac
+Packaged: 2025-05-07 09:56:24 UTC; hexac
 Author: Josep Lluis Carrasco [aut, cre],
   Gonzalo Peon Pena [aut]
 Maintainer: Josep Lluis Carrasco <jlcarrasco@ub.edu>
 Repository: CRAN
-Date/Publication: 2025-02-07 15:10:06 UTC
+Date/Publication: 2025-05-07 12:10:09 UTC
